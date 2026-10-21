@@ -1,0 +1,20 @@
+// use prisma-8
+namespace public{
+  model User {
+    id String @id
+    email String @unique
+    isSubscribed Boolean @default(false)
+    subscriptionEnds DateTime?
+    todos Todo[] 
+  }
+
+  model Todo {
+  id        String   @id @default(uuid())
+  title     String
+  completed Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt temporal.updatedAt()
+}
+}
